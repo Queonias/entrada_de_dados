@@ -1,5 +1,3 @@
-import 'package:entrada_dados/campo_texto.dart';
-import 'package:entrada_dados/entrada_slider.dart';
 import 'package:entrada_dados/tela_secundaria.dart';
 import 'package:flutter/material.dart';
 
