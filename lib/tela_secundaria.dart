@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SegundaTela extends StatefulWidget {
-  const SegundaTela({super.key});
+  final String valor;
+  const SegundaTela({super.key, required this.valor});
 
   @override
   State<SegundaTela> createState() => _SegundaTelaState();
@@ -19,8 +18,19 @@ class _SegundaTelaState extends State<SegundaTela> {
       ),
       body: Container(
         padding: const EdgeInsets.all(32),
-        child: const Column(
-          children: [Text("Segunda tela!!!")],
+        child: Column(
+          children: [
+            const Text("Segunda tela!!!"),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/");
+              },
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.all(15),
+              ),
+              child: const Text("Ir para primeira tela"),
+            )
+          ],
         ),
       ),
     );

@@ -2,9 +2,13 @@ import 'package:entrada_dados/tela_secundaria.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MaterialApp(
+  runApp(MaterialApp(
+    initialRoute: "/",
+    routes: {
+      "/secundaria": (context) => const SegundaTela(valor: "valor"),
+    },
     debugShowCheckedModeBanner: false,
-    home: TelaPrincial(),
+    home: const TelaPrincial(),
   ));
 }
 
@@ -29,11 +33,7 @@ class _TelaPrincialState extends State<TelaPrincial> {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SegundaTela(),
-                    ));
+                Navigator.pushNamed(context, "/secundaria");
               },
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.all(15),
