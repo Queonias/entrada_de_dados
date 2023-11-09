@@ -1,3 +1,7 @@
+import 'package:entrada_dados/tela_cliente.dart';
+import 'package:entrada_dados/tela_contato.dart';
+import 'package:entrada_dados/tela_empresa.dart';
+import 'package:entrada_dados/tela_servico.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -9,7 +13,35 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   void _abrirEmpresa() {
-    print("Abrir Empresa");
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const TelaEmpresa(),
+        ));
+  }
+
+  void _abrirServicos() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const TelaServico(),
+        ));
+  }
+
+  void _abrirClientes() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const TelaCliente(),
+        ));
+  }
+
+  void _abrirContato() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const TelaContato(),
+        ));
   }
 
   @override
@@ -39,7 +71,7 @@ class _HomeState extends State<Home> {
                         image: AssetImage("imagens/menu_empresa.png")),
                   ),
                   GestureDetector(
-                    onTap: null,
+                    onTap: _abrirServicos,
                     child: const Image(
                         image: AssetImage("imagens/menu_servico.png")),
                   ),
@@ -52,13 +84,13 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   GestureDetector(
-                    onTap: null,
+                    onTap: _abrirClientes,
                     child: const Image(
                       image: AssetImage("imagens/menu_cliente.png"),
                     ),
                   ),
                   GestureDetector(
-                    onTap: null,
+                    onTap: _abrirContato,
                     child: const Image(
                       image: AssetImage("imagens/menu_contato.png"),
                     ),
