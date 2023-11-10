@@ -51,12 +51,11 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.all(40),
         child: Column(
           children: [
-            Row(
-              children: [
-                Text(
-                  _lagradouro(),
-                )
-              ],
+            TextField(
+              keyboardType: TextInputType,
+            ),
+            Text(
+              _lagradouro(),
             ),
             ElevatedButton(
                 onPressed: _recuperarCEP, child: const Text("Clique aqui"))
