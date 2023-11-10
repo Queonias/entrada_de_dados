@@ -14,7 +14,8 @@ class _HomeState extends State<Home> {
   late Map<String, dynamic> res = {};
 
   _recuperarCEP() async {
-    String cep = "01001000";
+    String cepDigitado = _controllerCEP.text;
+    String cep = cepDigitado;
     var httpsUri = Uri(
       scheme: 'https',
       host: 'viacep.com.br',
@@ -35,11 +36,13 @@ class _HomeState extends State<Home> {
 
   String _lagradouro() {
     if (res.containsKey("logradouro")) {
-      return "Logradouro: ${res["logradouro"]}";
+      return "${res["logradouro"]}, ${res["bairro"]} ${res["localidade"]} - ${res["uf"]}";
     } else {
       return "";
     }
   }
+
+  final TextEditingController _controllerCEP = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +55,20 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             TextField(
-              keyboardType: TextInputType,
+              keyboardType: TextInputType.number,
+              // const TextInputType.numberWithOptions(decimal: true),
+              decoration: const InputDecoration(
+                  labelText: "Digite o CEP: ex: 05428200"),
+              style: const TextStyle(fontSize: 20),
+              controller: _controllerCEP,
+            ),
+            ElevatedButton(
+              onPressed: _recuperarCEP,
+              child: const Text("Clique aqui"),
             ),
             Text(
               _lagradouro(),
             ),
-            ElevatedButton(
-                onPressed: _recuperarCEP, child: const Text("Clique aqui"))
           ],
         ),
       ),
