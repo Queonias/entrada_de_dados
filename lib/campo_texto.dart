@@ -1,62 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-class CampoTexto extends StatefulWidget {
-  const CampoTexto({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  State<CampoTexto> createState() => _CampoTextoState();
+  State<Home> createState() => _HomeState();
 }
 
-class _CampoTextoState extends State<CampoTexto> {
-  final myController = TextEditingController();
+class _HomeState extends State<Home> {
+  List _itens = [];
 
-  // @override
-  // void initState() {
-  //   super.initState();
-
-  //   // Começa a ouvir as mudanças.
-  //   myController.addListener();
-  // }
+  void _carregarItens() {
+    _itens = [];
+    for (int i = 0; i <= 10; i++) {
+      Map<String, dynamic> item = {};
+      item["titulo"] = "Título $i Lorem ipsum dolor sit amet.";
+      item["descricao"] = "$i Lorem ipsum dolor sit amet.";
+      _itens.add(item);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    _carregarItens();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Entrada de dados"),
+        title: const Text("Lista"),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(32),
-            child: TextField(
-              keyboardType: TextInputType.text,
-              decoration: const InputDecoration(labelText: "Digite um valor"),
-              enabled: true,
-              maxLength: 10,
-              maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              style: const TextStyle(
-                fontSize: 25,
-                color: Colors.green,
-              ),
-              obscureText: true,
-              controller: myController,
-            ),
-          ),
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.lightGreen),
-              textStyle: MaterialStateProperty.all<TextStyle>(
-                const TextStyle(color: Colors.white),
-              ),
-            ),
-            onPressed: () {
-              print(myController.text);
-            },
-            child: const Text("Salvar"),
-          )
-        ],
+      body: Container(
+        padding: const EdgeInsets.all(20),
+        child: ListView.builder(
+          itemCount: _itens.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(_itens[index]["titulo"]),
+              subtitle: Text(_itens[index]["descricao"]),
+            );
+          },
+        ),
       ),
     );
   }
