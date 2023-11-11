@@ -1,62 +1,79 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'dart:convert';
 
-class CampoTexto extends StatefulWidget {
-  const CampoTexto({super.key});
+import 'package:entrada_dados/post.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  State<CampoTexto> createState() => _CampoTextoState();
+  State<Home> createState() => _HomeState();
 }
 
-class _CampoTextoState extends State<CampoTexto> {
-  final myController = TextEditingController();
+class _HomeState extends State<Home> {
+  var httpsUri = Uri(
+    scheme: 'https',
+    host: 'jsonplaceholder.typicode.com',
+    path: 'posts',
+  );
+  Future<List<Post>> _requestPost() async {
+    http.Response response = await http.get(httpsUri);
+    var dadosJson = json.decode(response.body);
 
-  // @override
-  // void initState() {
-  //   super.initState();
+    List<Post> postagem = [];
 
-  //   // Começa a ouvir as mudanças.
-  //   myController.addListener();
-  // }
+    for (var post in dadosJson) {
+      postagem
+          .add(Post(post["userId"], post["id"], post["title"], post["body"]));
+    }
+
+    return postagem;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Entrada de dados"),
+        title: const Text("Consumo de serviços avançados"),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(32),
-            child: TextField(
-              keyboardType: TextInputType.text,
-              decoration: const InputDecoration(labelText: "Digite um valor"),
-              enabled: true,
-              maxLength: 10,
-              maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              style: const TextStyle(
-                fontSize: 25,
-                color: Colors.green,
-              ),
-              obscureText: true,
-              controller: myController,
-            ),
-          ),
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.lightGreen),
-              textStyle: MaterialStateProperty.all<TextStyle>(
-                const TextStyle(color: Colors.white),
-              ),
-            ),
-            onPressed: () {
-              print(myController.text);
-            },
-            child: const Text("Salvar"),
-          )
-        ],
+      body: FutureBuilder<List<Post>>(
+        future: _requestPost(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            case ConnectionState.active:
+            case ConnectionState.done:
+              if (snapshot.hasError) {
+                print("Lista: Error ao carregar");
+              } else {
+                print("Lista: Carregou!!");
+
+                return ListView.builder(
+                  itemCount: snapshot.data?.length,
+                  itemBuilder: (context, index) {
+                    List<Post>? postagem = snapshot.data;
+                    Post post = postagem?[index] ?? Post(0, 0, "", "");
+
+                    return ListTile(
+                      title: Text(post.title),
+                      subtitle: Text(post.body),
+                    );
+                  },
+                );
+              }
+              break;
+          }
+          // Adicionando um retorno de widget padrão para o caso de todos os ramos
+          // não cobertos pelo switch
+          return const Center(
+            child: Text("Erro inesperado ao carregar dados"),
+          );
+        },
       ),
     );
   }
