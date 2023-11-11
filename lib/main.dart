@@ -1,8 +1,9 @@
-import 'package:entrada_dados/campo_texto.dart';
+import 'package:entrada_dados/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MaterialApp(
-    home: CampoTexto(),
+    debugShowCheckedModeBanner: false,
+    home: Home(),
   ));
 }
