@@ -1,11 +1,15 @@
 class Post {
   int userId;
-  int id;
-  String title;
-  String body;
+  int? id;
+  String? title;
+  String? body;
   int get getUserId => userId;
 
   Post(this.userId, this.id, this.title, this.body);
+
+  Map toJson() {
+    return {"userId": userId, "id": id, "title": title, "body": body};
+  }
 
   set setUserId(int userId) => this.userId = userId;
 
@@ -20,4 +24,6 @@ class Post {
   get getBody => body;
 
   set setBody(body) => body = body;
+
+  static fromJson(post) {}
 }
