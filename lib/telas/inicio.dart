@@ -1,3 +1,4 @@
+import 'package:entrada_dados/api.dart';
 import 'package:flutter/material.dart';
 
 class Inicio extends StatefulWidget {
@@ -10,6 +11,8 @@ class Inicio extends StatefulWidget {
 class _InicioState extends State<Inicio> {
   @override
   Widget build(BuildContext context) {
+    Api api = Api();
+    api.pesquisa("pesquisa");
     return const Center(
       child: Text(
         "Início",
