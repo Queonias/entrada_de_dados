@@ -11,4 +11,24 @@ class Video {
       this.imagem = "",
       this.canal = "",
       this.descricao = ""});
+
+  // static converteJson(Map<String, dynamic> json) {
+  //   return Video(
+  //     id: json["id"]["videoId"],
+  //     titulo: json["snippet"]["title"],
+  //     imagem: json["snippet"]["thumbnails"]["high"]["url"],
+  //     canal: json["snippet"]["channelTitle"],
+  //     descricao: json["snippet"]["description"],
+  //   );
+  // }
+
+  factory Video.fromJson(Map<String, dynamic> json) {
+    return Video(
+      id: json["id"]["videoId"],
+      titulo: json["snippet"]["title"],
+      imagem: json["snippet"]["thumbnails"]["high"]["url"],
+      canal: json["snippet"]["channelTitle"],
+      descricao: json["snippet"]["description"],
+    );
+  }
 }

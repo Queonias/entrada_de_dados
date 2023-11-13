@@ -1,5 +1,5 @@
 import 'package:entrada_dados/telas/biblioteca.dart';
-import 'package:entrada_dados/telas/emAlta.dart';
+import 'package:entrada_dados/telas/em_elta.dart';
 import 'package:entrada_dados/telas/inicio.dart';
 import 'package:entrada_dados/telas/inscricoes.dart';
 import 'package:flutter/material.dart';

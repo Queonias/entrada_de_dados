@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:entrada_dados/model/video.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -42,10 +43,15 @@ class Api {
     http.Response response = await http.get(httpsUri);
 
     if (response.statusCode == 200) {
-      print("Resultado: ${response.body}");
-      print(httpsUri);
-
       Map<String, dynamic> dadosJson = json.decode(response.body);
+
+      List<Video> videos = dadosJson["items"].map<Video>((map) {
+        return Video.fromJson(map);
+      }).toList();
+
+      for (var video in videos) {
+        print(video.descricao);
+      }
     } else {
       print(httpsUri);
     }
