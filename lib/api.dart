@@ -24,7 +24,7 @@ class Api {
     },
   );
 
-  pesquisa(String pesquisa) async {
+  Future<List<Video>> pesquisa(String pesquisa) async {
     final httpsUri = Uri(
       scheme: 'https',
       host: 'www.googleapis.com',
@@ -49,11 +49,9 @@ class Api {
         return Video.fromJson(map);
       }).toList();
 
-      for (var video in videos) {
-        print(video.descricao);
-      }
+      return videos;
     } else {
-      print(httpsUri);
+      return [];
     }
   }
 }
