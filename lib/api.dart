@@ -36,7 +36,7 @@ class Api {
         'maxResults': '20',
         'order': 'date',
         'key': KEY_API,
-        'q': 'date'
+        'q': pesquisa
       },
     );
 

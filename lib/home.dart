@@ -16,6 +16,7 @@ class _HomeState extends State<Home> {
   int _indiceAtual = 0;
   @override
   Widget build(BuildContext context) {
+    String _resultado = "";
     List<Widget> telas = [
       const Inicio(),
       const EmAlta(),
@@ -46,7 +47,9 @@ class _HomeState extends State<Home> {
               onPressed: () async {
                 String? res = await showSearch(
                     context: context, delegate: CustomSearchDelegate());
-                print("Resultado digitado: $res");
+                setState(() {
+                  resultado = _res.toString();
+                });
               },
               icon: const Icon(Icons.search)),
         ],
