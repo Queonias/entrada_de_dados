@@ -1,3 +1,4 @@
+import 'package:entrada_dados/custom_search_delegate.dart';
 import 'package:entrada_dados/telas/biblioteca.dart';
 import 'package:entrada_dados/telas/em_elta.dart';
 import 'package:entrada_dados/telas/inicio.dart';
@@ -31,21 +32,23 @@ class _HomeState extends State<Home> {
         ),
         backgroundColor: Colors.white,
         actions: [
+          // IconButton(
+          //     onPressed: () {
+          //       print("ação: pesquisa");
+          //     },
+          //     icon: const Icon(Icons.search)),
+          // IconButton(
+          //     onPressed: () {
+          //       print("ação: pesquisa");
+          //     },
+          //     icon: const Icon(Icons.account_circle))
           IconButton(
-              onPressed: () {
-                print("ação: videocam");
-              },
-              icon: const Icon(Icons.videocam)),
-          IconButton(
-              onPressed: () {
-                print("ação: pesquisa");
+              onPressed: () async {
+                String? res = await showSearch(
+                    context: context, delegate: CustomSearchDelegate());
+                print("Resultado digitado: $res");
               },
               icon: const Icon(Icons.search)),
-          IconButton(
-              onPressed: () {
-                print("ação: pesquisa");
-              },
-              icon: const Icon(Icons.account_circle))
         ],
       ),
       body: Container(
