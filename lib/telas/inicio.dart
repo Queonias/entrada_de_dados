@@ -3,7 +3,9 @@ import 'package:entrada_dados/model/video.dart';
 import 'package:flutter/material.dart';
 
 class Inicio extends StatefulWidget {
-  const Inicio({super.key});
+  final String pesquisa;
+
+  const Inicio(this.pesquisa, {super.key});
 
   @override
   State<Inicio> createState() => _InicioState();
@@ -19,7 +21,7 @@ class _InicioState extends State<Inicio> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Video>>(
-      future: _listarVideos("carros"),
+      future: _listarVideos(widget.pesquisa),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:

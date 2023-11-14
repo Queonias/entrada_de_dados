@@ -14,11 +14,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _indiceAtual = 0;
+  String _resultado = "";
   @override
   Widget build(BuildContext context) {
-    String _resultado = "";
     List<Widget> telas = [
-      const Inicio(),
+      Inicio(_resultado),
       const EmAlta(),
       const Inscricoes(),
       const Biblioteca(),
@@ -48,7 +48,7 @@ class _HomeState extends State<Home> {
                 String? res = await showSearch(
                     context: context, delegate: CustomSearchDelegate());
                 setState(() {
-                  resultado = _res.toString();
+                  _resultado = res.toString();
                 });
               },
               icon: const Icon(Icons.search)),
