@@ -28,9 +28,15 @@ class CustomSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    // print(query);
-    close(context, query);
-    return Container();
+    // Use um pequeno atraso para fechar a tela após a construção dos resultados
+    Future.delayed(const Duration(milliseconds: 100), () {
+      close(context, query);
+    });
+
+    return Container(
+        // Aqui você constrói e exibe os resultados da pesquisa
+        // Pode ser um ListView.builder, GridView.builder ou outro widget para mostrar os resultados
+        );
   }
 
   @override
