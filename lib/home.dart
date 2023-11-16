@@ -64,6 +64,42 @@ class _HomeState extends State<Home> {
     });
   }
 
+  Widget criarItemLista(context, index) {
+    final item = "${_listaTarefas[index]["titulo"]}-$index";
+    return Dismissible(
+      direction: DismissDirection.endToStart,
+      background: Container(
+        padding: const EdgeInsets.all(16),
+        color: Colors.red,
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Icon(
+              Icons.delete,
+              color: Colors.white,
+            )
+          ],
+        ),
+      ),
+      key: Key(item),
+      child: CheckboxListTile(
+        value: _listaTarefas[index]["realizada"],
+        title: Text(_listaTarefas[index]["titulo"].toString()),
+        onChanged: (value) {
+          print("Valor: ${value.toString()}");
+          setState(() {
+            _listaTarefas[index]["realizada"] = value;
+          });
+          _salvarArquivo();
+        },
+      ),
+      onDismissed: (direction) {
+        _listaTarefas.removeAt(index);
+        _salvarArquivo();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     print("Lista de tarefas: ${_listaTarefas.toString()}");
@@ -109,22 +145,7 @@ class _HomeState extends State<Home> {
           Expanded(
             child: ListView.builder(
               itemCount: _listaTarefas.length,
-              itemBuilder: (context, index) {
-                return CheckboxListTile(
-                  value: _listaTarefas[index]["realizada"],
-                  title: Text(_listaTarefas[index]["titulo"].toString()),
-                  onChanged: (value) {
-                    print("Valor: ${value.toString()}");
-                    setState(() {
-                      _listaTarefas[index]["realizada"] = value;
-                    });
-                    _salvarArquivo();
-                  },
-                );
-                // return ListTile(
-                //   title: Text(_listaTarefas[index]["titulo"].toString()),
-                // );
-              },
+              itemBuilder: criarItemLista,
             ),
           ),
         ],
