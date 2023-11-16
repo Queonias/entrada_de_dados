@@ -14,6 +14,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List _listaTarefas = [];
+  Map<String, dynamic> _ultimaTarefaRemovido = {};
   final TextEditingController _controllerTarefa = TextEditingController();
 
   Future<File> _getFile() async {
@@ -33,7 +34,7 @@ class _HomeState extends State<Home> {
       final arquivo = await _getFile();
       return arquivo.readAsString();
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return null;
     }
   }
@@ -65,7 +66,7 @@ class _HomeState extends State<Home> {
   }
 
   Widget criarItemLista(context, index) {
-    final item = "${_listaTarefas[index]["titulo"]}-$index";
+    final item = DateTime.now().microsecondsSinceEpoch.toString();
     return Dismissible(
       direction: DismissDirection.endToStart,
       background: Container(
@@ -86,7 +87,6 @@ class _HomeState extends State<Home> {
         value: _listaTarefas[index]["realizada"],
         title: Text(_listaTarefas[index]["titulo"].toString()),
         onChanged: (value) {
-          print("Valor: ${value.toString()}");
           setState(() {
             _listaTarefas[index]["realizada"] = value;
           });
@@ -94,15 +94,32 @@ class _HomeState extends State<Home> {
         },
       ),
       onDismissed: (direction) {
+        _ultimaTarefaRemovido = _listaTarefas[index];
         _listaTarefas.removeAt(index);
         _salvarArquivo();
+
+        var snackbar = SnackBar(
+          duration: const Duration(seconds: 5),
+          action: SnackBarAction(
+            label: 'Desfazer',
+            onPressed: () {
+              setState(() {
+                _listaTarefas.insert(index, _ultimaTarefaRemovido);
+              });
+              _salvarArquivo();
+            },
+          ),
+          content: const Text("Tarefa Removida"),
+          backgroundColor: Colors.green,
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(snackbar);
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    print("Lista de tarefas: ${_listaTarefas.toString()}");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Lista de tarefas"),
