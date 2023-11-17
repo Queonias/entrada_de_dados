@@ -54,8 +54,8 @@ class _HomeState extends State<Home> {
       if (bd != null) {
         // verificar se o banco de dados não é nulo
         Map<String, dynamic> dadosUsuario = {
-          "nome": "Queonias Gama Rocha",
-          "idade": 32
+          "nome": "Beatriz de Souza",
+          "idade": 19
         };
 
         int id = await bd.insert("usuarios", dadosUsuario);
@@ -68,10 +68,65 @@ class _HomeState extends State<Home> {
     }
   }
 
+  _listarUsuarios() async {
+    Database bd = await _recuperaBancoDados();
+
+    String sql = "SELECT * FROM usuarios";
+
+    List usuarios = await bd.rawQuery(sql);
+
+    for (var usuario in usuarios) {
+      print("item id : ${usuario["id"]}");
+      print("item nome : ${usuario["nome"]}");
+      print("item idade : ${usuario["idade"]}");
+    }
+
+    print(usuarios);
+  }
+
+  _recuperarUsuarioPeloId(int id) async {
+    Database bd = await _recuperaBancoDados();
+    List usuarios = await bd.query("usuarios",
+        columns: ["id", 'nome', 'idade'], where: "id = ?", whereArgs: [id]);
+
+    for (var usuario in usuarios) {
+      print("item id : ${usuario["id"]}");
+      print("item nome : ${usuario["nome"]}");
+      print("item idade : ${usuario["idade"]}");
+    }
+  }
+
+  _excluirUsuario(int id) async {
+    Database bd = await _recuperaBancoDados();
+
+    int retorno = await bd.delete("usuarios", where: "id = ?", whereArgs: [id]);
+
+    print("item removido qtde: $retorno");
+  }
+
+  _atualizarUsuario(int id) async {
+    Database bd = await _recuperaBancoDados();
+
+    Map<String, dynamic> dadosUsuario = {
+      "nome": "Renado Duarte",
+      "idade": 26,
+    };
+
+    int retorno = await bd
+        .update("usuarios", dadosUsuario, where: "id = ?", whereArgs: [id]);
+
+    print("item atualizado qtde: $retorno");
+  }
+
   @override
   Widget build(BuildContext context) {
     // _recuperaBancoDados();
-    _salvar();
+    // _salvar();
+    _listarUsuarios();
+    // _recuperarUsuarioPeloId(7);
+    // _atualizarUsuario(7);
+    // _recuperarUsuarioPeloId(7);
+    // _excluirUsuario(6);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
