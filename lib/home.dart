@@ -31,17 +31,23 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         appBar: AppBar(
           title: const Text("Aprenda Inglês"),
           backgroundColor: Colors.brown,
-          bottom: TabBar(controller: _tabController, tabs: const [
-            Tab(
-              text: "Bichos",
-            ),
-            Tab(
-              text: "Números",
-            ),
-            Tab(
-              text: "Vogais",
-            ),
-          ]),
+          bottom: TabBar(
+              indicatorWeight: 4,
+              indicatorColor: Colors.white,
+              labelStyle:
+                  const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+              controller: _tabController,
+              tabs: const [
+                Tab(
+                  text: "Bichos",
+                ),
+                Tab(
+                  text: "Números",
+                ),
+                Tab(
+                  text: "Vogais",
+                ),
+              ]),
         ),
         body: TabBarView(controller: _tabController, children: const [
           Bichos(),
