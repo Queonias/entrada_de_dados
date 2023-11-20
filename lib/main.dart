@@ -1,8 +1,10 @@
-import 'package:entrada_dados/home.dart';
+import 'package:entrada_dados/lanterna.dart';
 import 'package:flutter/material.dart';
+import 'package:torch_controller/torch_controller.dart';
 
 void main() {
+  TorchController().initialize();
   runApp(const MaterialApp(
-    home: Home(),
+    home: Lanterna(),
   ));
 }
