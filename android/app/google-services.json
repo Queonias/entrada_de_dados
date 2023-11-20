@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "341109022842",
+    "project_id": "peaceful-garden-352712",
+    "storage_bucket": "peaceful-garden-352712.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341109022842:android:6c0eaac5eeca946215dbc3",
+        "android_client_info": {
+          "package_name": "com.example.entrada_dados"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "341109022842-rlfl9gdueiskektdoi7gfpnqmjh8uuio.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEkx4hgsMF72PaCLH0IRZLmLlGmrWjMWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "341109022842-rlfl9gdueiskektdoi7gfpnqmjh8uuio.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
