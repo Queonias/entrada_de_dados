@@ -51,14 +51,15 @@ class MyApp extends StatelessWidget {
     //   }
     // }
 
-  //   try {
-  //     await db.collection("noticias").doc("FFWw3c69ERlN2FiOAMdf").set({
-  //       "descricao": "Ondas de calor",
-  //       "titilo": "Tá muito quente aqui eu tô morrendo de calor, c",
-  //     });
-  //     print("item salvo");
-  //   } catch (e) {
-  //     print("Erro ao adicionar documento: $e");
-  //   }
-  // }
+    //   try {
+    //     await db.collection("noticias").doc("FFWw3c69ERlN2FiOAMdf").set({
+    //       "descricao": "Ondas de calor",
+    //       "titilo": "Tá muito quente aqui eu tô morrendo de calor, c",
+    //     });
+    //     print("item salvo");
+    //   } catch (e) {
+    //     print("Erro ao adicionar documento: $e");
+    //   }
+    // }
+  }
 }
