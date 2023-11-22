@@ -126,11 +126,14 @@ class _HomeState extends State<Home> {
           .collection('usuarios')
           // .where("nome", isEqualTo: "Queonias")
           // .where("idade", isEqualTo: "31")
-          .where("idade", isGreaterThan: 15)
+          // .where("idade", isGreaterThan: 15)
           // .where("idade", isLessThan: 30)
-          .orderBy("idade", descending: false)
-          .orderBy("nome", descending: false)
-          .limit(2)
+          // .orderBy("idade", descending: false)
+          // .orderBy("nome", descending: false)
+          // .limit(2)
+          // Pesquisa por palavra
+          .where("nome", isGreaterThanOrEqualTo: "a")
+          .where("nome", isLessThanOrEqualTo: "a\uf8ff")
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
