@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -26,6 +27,22 @@ class _HomeState extends State<Home> {
     setState(() {
       pickedFile = pickedImage;
     });
+  }
+
+  Future<void> _uploadImagem() async {
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference pastaRaiz = storage.ref();
+    Reference arquivo = pastaRaiz.child('fotosApp/linda_foto.jpg');
+
+    // Obtenha o caminho do arquivo do XFile e crie um File a partir dele
+    if (pickedFile != null) {
+      File file = File(pickedFile!.path);
+
+      // Faça o upload do arquivo para o Firebase Storage
+      await arquivo.putFile(file);
+    } else {
+      print('Nenhum arquivo selecionado');
+    }
   }
 
   @override
@@ -53,6 +70,11 @@ class _HomeState extends State<Home> {
                 height: 300, // Ajuste a altura conforme necessário
                 width: 300, // Ajuste a largura conforme necessário
               ),
+            ElevatedButton(
+                onPressed: () {
+                  _uploadImagem();
+                },
+                child: const Text("Upload Storage")),
           ],
         ),
       ),
