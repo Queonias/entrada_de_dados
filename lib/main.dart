@@ -77,6 +77,38 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
+  Future<void> _singOut() async {
+    try {
+      User? usuarioAtual = _auth.currentUser;
+      if (usuarioAtual != null) {
+        _auth.signOut();
+        print('Usuário desconectado com sucesso');
+      } else {
+        print('Nenhum usuário logado');
+      }
+    } catch (e) {
+      print('Erro ao desconectar o usuário: $e');
+    }
+  }
+
+  Future<void> _signIn() async {
+    try {
+      User? currentUser = _auth.currentUser;
+      if (currentUser != null) {
+        print('Usuário já conectado. Ir para a tela home.');
+      } else {
+        UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+        print(
+            'Usuário conectado. Ir para a tela home: ${userCredential.user!.email}');
+      }
+    } catch (e) {
+      print('Erro ao logar o usuário: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,7 +144,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               child: const Text('Register'),
             ),
             ElevatedButton(
-                onPressed: _isUserLoggedIn, child: const Text("Esta logado"))
+                onPressed: _isUserLoggedIn, child: const Text("Esta logado")),
+            ElevatedButton(
+                onPressed: _singOut, child: const Text("Deslogar Usuário")),
+            ElevatedButton(
+                onPressed: _signIn, child: const Text("Logar usuário")),
           ],
         ),
       ),
